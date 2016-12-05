@@ -12,19 +12,6 @@
     tools:context="com.wxyz.root.ecolorsreader.MainActivity">
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:fabSize="mini"
-        app:srcCompat="?attr/actionModeShareDrawable"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/id"
-        android:layout_toEndOf="@+id/id"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp"
-        android:id="@+id/fab" />
-
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
@@ -47,8 +34,19 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hint"
+            android:hint="adicione los puntos aqui"
             android:id="@+id/puntos" />
     </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp"
+        android:id="@+id/enviar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/id"
+        android:layout_alignStart="@+id/id" />
 
 </RelativeLayout>

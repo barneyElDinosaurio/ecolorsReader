@@ -27,13 +27,45 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-           mScannerView = new ZXingScannerView(this);   // Programmatically initialize the scanner view
-            setContentView(mScannerView);
 
-
+        mScannerView = new ZXingScannerView(this);   // Programmatically initialize the scanner view
+        setContentView(mScannerView);
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(checkAndRequestPermissions()) {
+
+            mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
+            mScannerView.startCamera();          // Start camera on resume
+
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mScannerView.stopCamera();           // Stop camera on pause
+    }
+
+    ////////////////////////////ANOTHER METHODS//////////////////////////////////
+
+    //HANDLE RESULT FOR QR CODE
+    @Override
+    public void handleResult(Result rawResult) {
+
+        // Do something with the result here
+        Intent i = new Intent(getApplicationContext(),AddPoints.class);
+        i.putExtra("id",rawResult.getText());//Send info of id to other class
+        startActivity(i);
+        // If you would like to resume scanning, call this method below:
+        mScannerView.resumeCameraPreview(this);
+
+    }
+
+    //PERMISSION IN REALTIME FOR CAMERA
     private  boolean checkAndRequestPermissions() {
         int permissionSendMessage = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA);
@@ -45,37 +77,6 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         }
         return true;
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(checkAndRequestPermissions()) {
-
-            mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
-            mScannerView.startCamera();          // Start camera on resume
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mScannerView.stopCamera();           // Stop camera on pause
-    }
-
-    @Override
-    public void handleResult(Result rawResult) {
-        // Do something with the result here
-        // Do something with the result here
-        Intent i = new Intent(getApplicationContext(),AddPoints.class);
-        i.putExtra("id",rawResult.getText());//Send info of id to other class
-        startActivity(i);
-        // If you would like to resume scanning, call this method below:
-        mScannerView.resumeCameraPreview(this);
-
-    }
-
-
-
 
 
 }
